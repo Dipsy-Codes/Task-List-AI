@@ -1,0 +1,22 @@
+.strikethrough {
+    text-decoration: line-through;
+  }
+
+  .form-check-input{
+    margin-right: 1rem !important;
+  }
+
+  .btn {
+    padding: 0 0 0 0 !important;
+    margin: 0 0 0 10px !important;
+  }
+  .align-items-center > label {
+    margin-right: 3rem;
+  }
+
+  .task-label {
+    max-width: 50dvw;
+  }
+  .inner-list {
+    padding: 0 !important;
+  }

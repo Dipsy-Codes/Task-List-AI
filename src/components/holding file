@@ -1,0 +1,156 @@
+/*
+import React, { useEffect, useState } from "react";
+import OpenAI from "openai";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./AiResponseToList.css";
+import {
+  Delete as DeleteIcon,
+  Assistant as AssistantIcon,
+} from "@mui/icons-material";
+
+// Define type for DynamicList props
+interface DynamicListProps {
+  line: string;
+}
+
+// Child Component
+const DynamicList: React.FC<DynamicListProps> = ({ line }) => {
+  const [listItems, setListItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchOpenAI = async () => {
+      const appendedText = `Take this problem and break it down into at most 5 smaller bite sized problems that are direct subtasks of this specific problem to create a tasklist but don't make it too specific just general subtasks. after that format the task list so that it is in a html list only give me the actual list starting with the <ol> or <ul> tags. Here is the problem description: ${line}`;
+
+      try {
+        const openai = new OpenAI({
+          apiKey: "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",
+          dangerouslyAllowBrowser: true,
+        });
+
+        const response = await openai.chat.completions.create({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content: appendedText,
+            },
+          ],
+          temperature: 0.5,
+          max_tokens: 1024,
+          top_p: 1,
+          frequency_penalty: 0,
+          presence_penalty: 0,
+        });
+        var openAIText = "";
+        if (response.choices[0].message.content?.toString() != null) {
+          openAIText = response.choices[0].message.content?.toString();
+        }
+
+        if (openAIText) {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(openAIText, "text/html");
+          const items: string[] = [];
+
+          doc.querySelectorAll("li").forEach((item) => {
+            items.push(item.textContent || "");
+          });
+
+          setListItems(items);
+        }
+      } catch (error) {
+        console.error("Error fetching from backend:", error);
+      }
+    };
+
+    fetchOpenAI();
+  }, [line]); // Dependency on 'line' to refetch whenever it changes
+
+  return (
+    <>
+      {listItems.map((item, index) => (
+        <li className="list-group-item" key={index}>
+          <input className="form-check-input me-1" type="checkbox" value="" />
+          {item}
+        </li>
+      ))}
+    </>
+  );
+};
+
+// Define type for MultiLineList props
+interface AiResponseToListProps {
+  title: string;
+  text: string;
+  isLoading: boolean;
+}
+
+// Parent Component
+const AiResponseToList: React.FC<AiResponseToListProps> = ({
+  title,
+  text,
+  isLoading,
+}) => {
+  if (isLoading) {
+    return <div>Generating...</div>;
+  }
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(text, "text/html");
+  const initialListItems: string[] = [];
+
+  doc.querySelectorAll("li").forEach((item) => {
+    initialListItems.push(item.textContent || "");
+  });
+
+  const [listItems, setListItems] = useState(initialListItems);
+
+  const handleDelete = (indexToDelete: number) => {
+    const newListItems = listItems.filter(
+      (item, index) => index !== indexToDelete
+    );
+    setListItems(newListItems);
+  };
+
+  return (
+    <>
+      <h3>{title}</h3>
+      <ul className="list-group">
+        {listItems.map((item, index) => (
+          <li
+            key={index}
+            className="list-group-item d-flex flex-column align-items-stretch"
+          >
+            <div className="d-flex align-items-center justify-content-between">
+              <input
+                className="form-check-input me-1"
+                type="checkbox"
+                value=""
+              />
+              <span className="me-auto">{item}</span>
+              <div className="btn-group">
+                <button type="button" className="btn">
+                  <AssistantIcon />
+                </button>
+                <button
+                  type="button"
+                  className="btn"
+                  style={{ color: "red" }}
+                  onClick={() => handleDelete(index)}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
+            </div>
+            <ul className="inner-list">
+              <DynamicList line={item} />
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default AiResponseToList;
+
+*/
