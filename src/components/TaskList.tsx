@@ -19,7 +19,7 @@ const TaskList: React.FC<Props> = ({ text }) => {
 
       try {
         const openai = new OpenAI({
-          apiKey: "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",
+          apiKey: "",
           dangerouslyAllowBrowser: true,
         });
 
